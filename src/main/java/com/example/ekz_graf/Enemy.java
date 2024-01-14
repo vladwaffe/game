@@ -79,37 +79,47 @@ class Enemy {
         Light.Point purb= urb.to2D(); //правый верхний передний
         Light.Point pllb= llb.to2D(); //левый передний нижний
         Light.Point plrb= lrb.to2D(); //правый передний нижний
-
-        g.setColor(Color.gray);
+        g.setColor(Color.red);
+        Polygon down = new Polygon();
+        down.addPoint((int) pllf.getX(), (int) pllf.getY());
+        down.addPoint((int) plrf.getX(), (int) plrf.getY());
+        down.addPoint((int) plrb.getX(), (int) plrb.getY());
+        down.addPoint((int) pllb.getX(), (int) pllb.getY());
+        g.fillPolygon(down);
         Polygon right = new Polygon();
-        right.addPoint((int)purf.getX(), (int)purf.getY());
-        right.addPoint((int)purb.getX(), (int)purb.getY());
+        /*right.addPoint((int)purf.getX(), (int)purf.getY());
+        right.addPoint((int)purb.getX(), (int)purb.getY());*/
+        right.addPoint((int)center.getX(), (int)center.getY());
         right.addPoint((int)plrb.getX(), (int)plrb.getY());
         right.addPoint((int)plrf.getX(), (int)plrf.getY());
         g.fillPolygon(right);
         Polygon left = new Polygon();
-        left.addPoint((int)pulf.getX(), (int)pulf.getY());
-        left.addPoint((int)pulb.getX(), (int)pulb.getY());
+       /* left.addPoint((int)pulf.getX(), (int)pulf.getY());
+        left.addPoint((int)pulb.getX(), (int)pulb.getY());*/
+        left.addPoint((int)center.getX(), (int)center.getY());
         left.addPoint((int)pllb.getX(), (int)pllb.getY());
         left.addPoint((int)pllf.getX(), (int)pllf.getY());
         g.fillPolygon(left);
-        Polygon up = new Polygon();
+       /* Polygon up = new Polygon();
         up.addPoint((int) pulf.getX(), (int) pulf.getY());
         up.addPoint((int) pulb.getX(), (int) pulb.getY());
         up.addPoint((int) purb.getX(), (int) purb.getY());
         up.addPoint((int) purf.getX(), (int) purf.getY());
-        g.fillPolygon(up);
-        g.setColor(Color.WHITE);
+        g.fillPolygon(up);*/
+        g.setColor(Color.pink);
         Polygon front = new Polygon();
-        front.addPoint((int) pulb.getX(), (int) pulb.getY());
-        front.addPoint((int) purb.getX(), (int) purb.getY());
+        /*front.addPoint((int) pulb.getX(), (int) pulb.getY());
+        front.addPoint((int) purb.getX(), (int) purb.getY());*/
+        front.addPoint((int)center.getX(), (int)center.getY());
         front.addPoint((int) plrb.getX(), (int) plrb.getY());
         front.addPoint((int) pllb.getX(), (int) pllb.getY());
         g.fillPolygon(front);
+
     }
 
     float zoomFactor = 5;
     public void further(int zoomFactor) {
+        fl.z -= zoomFactor;
         ulf.z -= zoomFactor;
         urf.z -= zoomFactor;
         llf.z -= zoomFactor;
@@ -122,6 +132,7 @@ class Enemy {
     }
 
     public void closer() {
+        fl.z += zoomFactor;
         ulf.z += zoomFactor;
         urf.z += zoomFactor;
         llf.z += zoomFactor;

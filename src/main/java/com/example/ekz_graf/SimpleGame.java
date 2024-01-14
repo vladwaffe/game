@@ -10,18 +10,18 @@ import java.util.ArrayList;
 import java.util.Random;
 public class SimpleGame extends JPanel implements ActionListener, KeyListener {
     Enemy enemy;
+    int stars_counter = 0;
     private int playerX = 175;  // Начальное положение игрока по горизонтали
-    private int playerY = 480;  // Начальное положение игрока по вертикали
-    private int playerSpeed = 15;  // Скорость движения игрока
+    private int playerY = 480;
+    private int playerSpeed = 15;
     Cube cube_player = new Cube(0, 190);
-    Cube field = new Cube(0, 0);
-    private ArrayList<Integer> enemyX = new ArrayList<>();  // X-координаты врагов
-    private ArrayList<Integer> enemyY = new ArrayList<>();  // Y-координаты врагов
+    Field field = new Field();
     private ArrayList<Enemy> enemis = new ArrayList<>();
-    private int enemySpeed = 15;  // Скорость движения врагов
-    private Timer timer;  // Таймер для обновления экрана
-    private boolean gameOver = false;  // Флаг окончания игры
-    private int score = 0;  // Счет игрока
+    private ArrayList<Stars> stars = new ArrayList<>();
+    private int enemySpeed = 15;
+    private Timer timer;
+    private boolean gameOver = false;
+    private int score = 0;
     public SimpleGame() {
         addKeyListener(this);
         setFocusable(true);
@@ -33,36 +33,23 @@ public class SimpleGame extends JPanel implements ActionListener, KeyListener {
         JFrame frame = new JFrame("Simple Game");
         SimpleGame game = new SimpleGame();
         frame.add(game);
-        frame.setSize(400, 600);
+        frame.setSize(415, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
     public void paintComponent(Graphics g) {
-
-
         super.paintComponent(g);
-        g.setColor(Color.BLACK); // Заливаем фон черным цветом
+        g.setColor(Color.BLACK);
         g.fillRect(0, 0, 400, 600);
-
-
-
-
-
-
-        g.setColor(Color.WHITE); // Белый цвет для фигуры игрока
-        g.fillRect(199, 299, 2, 2);
-
-
-
-
-        /*for (int i = 0; i < enemyX.size(); i++) {
-            g.setColor(Color.RED); // Используем красный цвет
-            g.fillOval(enemyX.get(i), enemyY.get(i), 20, 20);
-        }*/
+        for(int i = 0; i < stars.size(); i++){
+            stars.get(i).draw(g);
+        }
+        field.draw(g);
         for (int i = 0; i < enemis.size(); i++){
             enemis.get(i).project(g);
         }
         cube_player.project(g);
+
 
 
 
@@ -74,6 +61,7 @@ public class SimpleGame extends JPanel implements ActionListener, KeyListener {
             g.drawString("Конец игры", 120, 300);  // Выводим надпись "Конец игры" при окончании игры
             timer.stop();  // Останавливаем таймер
         }
+
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -90,7 +78,7 @@ public class SimpleGame extends JPanel implements ActionListener, KeyListener {
                         break;
                     }
                     case 2: {
-                        enemis.get(i).move(1, 9);
+                        enemis.get(i).move(-1, 9);
                         enemis.get(i).further(18);
                         if (enemis.get(i).llb.to2D().getY() > 600) {
                             enemis.remove(0);
@@ -127,7 +115,22 @@ public class SimpleGame extends JPanel implements ActionListener, KeyListener {
                     }
                 }
             }
+            for(int i = 0; i < stars.size(); i++){
+                stars.get(i).motion(5);
+                if(stars.get(i).getY() > 600){
+                    stars.remove(0);
+                }
+            }
             repaint();
+            /*if(stars.isEmpty() || stars.get(0).getY() > 150){
+                spawnStars();
+            }*/
+            if(stars_counter == 10){
+                spawnStars();
+                stars_counter = 0;
+            }else {
+                stars_counter++;
+            }
             if (enemis.isEmpty()){
                 spawnEnemy();
             }
@@ -137,9 +140,8 @@ public class SimpleGame extends JPanel implements ActionListener, KeyListener {
     }
     public void spawnEnemy() {
         Random rand = new Random();
-        int numEnemies = rand.nextInt(4) + 1; // Генерируем от 1 до 3 врагов за раз
+        int numEnemies = rand.nextInt(4) + 1;
         for (int i = 0; i < numEnemies; i++) {
-            //int x = rand.nextInt(350); // Генерируем случайную X-координату для врага
             int x = rand.nextInt(-50, 50);
             int y = -150;
             if(x >= -50 && x <= -25){
@@ -155,18 +157,20 @@ public class SimpleGame extends JPanel implements ActionListener, KeyListener {
             }
             enemis.add(enemy);
         }
+    }
+    public void spawnStars(){
+        Random rand = new Random();
+        int numStars = rand.nextInt(8) + 5;
 
-
+        for (int i = 0; i < numStars; i++) {
+            int x = rand.nextInt(400);
+            int y = 0 - i * 5 ;
+            Stars star = new Stars(x, y);
+            stars.add(star);
+        }
     }
     public void checkCollision() {
-        Rectangle playerBounds = new Rectangle(playerX, playerY, 50, 50);  // Границы игрока
-        /*for (int i = 0; i < enemyX.size(); i++) {
-            Rectangle enemyBounds = new Rectangle(enemyX.get(i), enemyY.get(i), 20, 20);  // Границы врага
-            if (playerBounds.intersects(enemyBounds)) {
-                gameOver = true;  // Если произошло столкновение, игра заканчивается
-                break;
-            }
-        }*/
+        Rectangle playerBounds = new Rectangle(playerX, playerY, 45, 45);  // Границы игрока
         for(int i = 0; i < enemis.size(); i++){
             Rectangle enemyBounds1 = new Rectangle((int) enemis.get(i).ulf.to2D().getX(), (int) enemis.get(i).ulf.to2D().getY(), 30, 30);
             if (playerBounds.intersects(enemyBounds1)) {
