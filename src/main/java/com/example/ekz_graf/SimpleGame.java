@@ -9,59 +9,79 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 public class SimpleGame extends JPanel implements ActionListener, KeyListener {
+    private boolean showText = true;
     Enemy enemy;
     int stars_counter = 0;
     private int playerX = 175;  // Начальное положение игрока по горизонтали
     private int playerY = 480;
     private int playerSpeed = 15;
     Cube cube_player = new Cube(0, 190);
+    static SimpleGame game = new SimpleGame();
     Field field = new Field();
     private ArrayList<Enemy> enemis = new ArrayList<>();
     private ArrayList<Stars> stars = new ArrayList<>();
     private int enemySpeed = 15;
     private Timer timer;
     private boolean gameOver = false;
+    private boolean startPage = true;
+
     private int score = 0;
     public SimpleGame() {
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
         timer = new Timer(100, this);  // Тут создаем таймер
-        timer.start();  // В этой строчке его запускаем
+
+        Timer timer_text = new Timer(500, e -> {
+            showText = !showText;
+            repaint();
+        });
+        timer_text.start();
     }
     public static void main(String[] args) {
         JFrame frame = new JFrame("Simple Game");
-        SimpleGame game = new SimpleGame();
         frame.add(game);
         frame.setSize(415, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 400, 600);
-        for(int i = 0; i < stars.size(); i++){
-            stars.get(i).draw(g);
-        }
-        field.draw(g);
-        for (int i = 0; i < enemis.size(); i++){
-            enemis.get(i).project(g);
-        }
-        cube_player.project(g);
 
-
-
-
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("Arial", Font.PLAIN, 20));
-        g.drawString("Счет: " + score, 10, 30);  // Выводим счет игрока на экран
-        if (gameOver) {
+        if(startPage){
+            super.paintComponent(g);
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, 400, 600);
+            g.setColor(Color.WHITE);
             g.setFont(new Font("Arial", Font.PLAIN, 40));
-            g.drawString("Конец игры", 120, 300);  // Выводим надпись "Конец игры" при окончании игры
-            timer.stop();  // Останавливаем таймер
-        }
+            g.drawString("Начать игру", 90, 300);
+            if(showText) {
+                g.setFont(new Font("Arial", Font.PLAIN, 15));
+                g.drawString("press enter", 160, 320);
+            }
+        }else {
+            super.paintComponent(g);
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, 400, 600);
+            for (int i = 0; i < stars.size(); i++) {
+                stars.get(i).draw(g);
+            }
+            field.draw(g);
+            for (int i = 0; i < enemis.size(); i++) {
+                enemis.get(i).project(g);
+            }
+            cube_player.project(g);
 
+
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Arial", Font.PLAIN, 20));
+            g.drawString("Счет: " + score, 10, 30);  // Выводим счет игрока на экран
+            if (gameOver) {
+                g.setFont(new Font("Arial", Font.PLAIN, 40));
+                g.drawString("Конец игры", 90, 300);  // Выводим надпись "Конец игры" при окончании игры
+                timer.stop();  // Останавливаем таймер
+            }
+
+        }
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -193,6 +213,20 @@ public class SimpleGame extends JPanel implements ActionListener, KeyListener {
                 playerX += playerSpeed;  // Перемещаем игрока вправо
                 cube_player.move(+playerSpeed, 0);
             }
+            if(key == KeyEvent.VK_ENTER){
+                startPage = false;
+                timer.start();  // В этой строчке его запускаем
+            }
+           /* if(key == KeyEvent.VK_ENTER && gameOver){
+                *//*try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }*//*
+                startPage = true;
+                timer.start();
+            }*/
+
         }
     }
     @Override
