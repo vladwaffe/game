@@ -38,13 +38,7 @@ public class SimpleGame extends JPanel implements ActionListener, KeyListener {
         });
         timer_text.start();
     }
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Simple Game");
-        frame.add(game);
-        frame.setSize(415, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-    }
+
     public void paintComponent(Graphics g) {
 
         if(startPage){
