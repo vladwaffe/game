@@ -5,12 +5,13 @@ import javafx.scene.effect.Light;
 import java.awt.*;
 
 class Cube {
-    private static int width = 400; //это что - константа? тогда private static final
-    private static int height = 600;
-
+    private static final int width = 400; //это что - константа? тогда private static final
+    private static final int height = 600;
+    public final int size = 50;
+    private final float zoomFactor = 5;
     private static float distance;
     private float angle;
-    public int size = 50;
+
     Vector3D ulf, urf, llf, lrf; // upper left front, upper right front, usw..
     Vector3D ulb, urb, llb, lrb; // upper left back ,...
     Vector3D fl, fr, bl, br;
@@ -19,9 +20,10 @@ class Cube {
 
 
 
+
     public Cube(int stX, int stY) {
         angle = (float) Math.toRadians(40);
-        distance = (width / 2) / (float) (Math.tan(angle / 2));
+        distance = ((float) width / 2) / (float) (Math.tan(angle / 2));
         int size_2 = size/2;
         int startx = stX - size_2;
         int starty = stY - size_2;
@@ -61,11 +63,16 @@ class Cube {
         lrb.y += dy;
 
     }
+    private Polygon create_poligon(Light.Point p1, Light.Point p2, Light.Point p3, Light.Point p4){
+        Polygon poligon = new Polygon();
+        poligon.addPoint((int)p1.getX(), (int)p1.getY());
+        poligon.addPoint((int)p2.getX(), (int)p2.getY());
+        poligon.addPoint((int)p3.getX(), (int)p3.getY());
+        poligon.addPoint((int)p4.getX(), (int)p4.getY());
+        return poligon;
+    }
 
     public void project(Graphics g) {
-
-        Light.Point center = fl.to2D(); //центр
-
         Light.Point pulf = ulf.to2D(); //левый задний верхний
         Light.Point purf = urf.to2D(); //правый задний верхний
         Light.Point pllf = llf.to2D(); //левый задний нижний
@@ -74,40 +81,15 @@ class Cube {
         Light.Point purb= urb.to2D(); //правый верхний передний
         Light.Point pllb= llb.to2D(); //левый передний нижний
         Light.Point plrb= lrb.to2D(); //правый передний нижний
-
         g.setColor(Color.gray);
-        //Вынести в отдельный метод создание объекта
-        Polygon right = new Polygon();
-        right.addPoint((int)purf.getX(), (int)purf.getY());
-        right.addPoint((int)purb.getX(), (int)purb.getY());
-        right.addPoint((int)plrb.getX(), (int)plrb.getY());
-        right.addPoint((int)plrf.getX(), (int)plrf.getY());
-        //вот досюда
-        g.fillPolygon(right); //сюда передавать результат, это увеличит читабильность, уменьшит повторяемость
+        g.fillPolygon(create_poligon(purf, purb, plrb, plrf)); //right
         g.setColor(Color.gray);
-        Polygon left = new Polygon();
-        left.addPoint((int)pulf.getX(), (int)pulf.getY());
-        left.addPoint((int)pulb.getX(), (int)pulb.getY());
-        left.addPoint((int)pllb.getX(), (int)pllb.getY());
-        left.addPoint((int)pllf.getX(), (int)pllf.getY());
-        g.fillPolygon(left);
+        g.fillPolygon(create_poligon(pulf, pulb, pllb, pllf)); //left
         g.setColor(Color.WHITE);
-        Polygon front = new Polygon();
-        front.addPoint((int) pulb.getX(), (int) pulb.getY());
-        front.addPoint((int) purb.getX(), (int) purb.getY());
-        front.addPoint((int) plrb.getX(), (int) plrb.getY());
-        front.addPoint((int) pllb.getX(), (int) pllb.getY());
-        g.fillPolygon(front);
+        g.fillPolygon(create_poligon(pulb, purb, plrb, pllb)); //front
         g.setColor(Color.LIGHT_GRAY);
-        Polygon up = new Polygon();
-        up.addPoint((int) pulf.getX(), (int) pulf.getY());
-        up.addPoint((int) pulb.getX(), (int) pulb.getY());
-        up.addPoint((int) purb.getX(), (int) purb.getY());
-        up.addPoint((int) purf.getX(), (int) purf.getY());
-        g.fillPolygon(up);
+        g.fillPolygon(create_poligon(pulf, pulb, purb, purf)); //up
     }
-
-    float zoomFactor = 5; //это что - константа? тогда вверх и private static final
     public void further(int zoomFactor) {
         ulf.z -= zoomFactor;
         urf.z -= zoomFactor;
@@ -119,7 +101,6 @@ class Cube {
         lrb.z -= zoomFactor;
 
     }
-
     public void closer(int zoomFactor) {
         ulf.z += zoomFactor;
         urf.z += zoomFactor;
@@ -131,41 +112,25 @@ class Cube {
         lrb.z += zoomFactor;
 
     }
-
-    public static int getWidth() {
+    public static int getWidth(){
         return width;
     }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public static int getHeight() {
+    public static int getHeight(){
         return height;
     }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public static float getDistance() {
         return distance;
     }
-
     public void setDistance(float distance) {
         this.distance = distance;
     }
-
     public float getAngle() {
         return angle;
     }
-
     public void setAngle(float angle) {
         this.angle = angle;
     }
-
-    public void motion(Graphics g){
-
+   /* public void motion(Graphics g){
         //что за мэджик намберс? в константы!!!
         int startX = 200;
         int startY = 0;
@@ -175,9 +140,6 @@ class Cube {
         g.fillOval(startX-1, startY-1, 2, 2);
         g.drawLine(200, 0, 0, 600);
         while(y<600){
-
         }
-
-
-    }
+    }*/
 }

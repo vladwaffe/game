@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.util.Random;
 public class SimpleGame extends JPanel implements ActionListener, KeyListener {
     private boolean showText = true;
-    Enemy enemy;
+    private Enemy enemy;
     int stars_counter = 0;
     private int playerX = 175;  // Начальное положение игрока по горизонтали
     private int playerY = 480;
     private int playerSpeed = 15;
-    Cube cube_player = new Cube(0, 190);
+    private Cube cube_player = new Cube(0, 190);
     static SimpleGame game = new SimpleGame();
-    Field field = new Field();
+    private Field field = new Field();
     private ArrayList<Enemy> enemis = new ArrayList<>();
     private ArrayList<Stars> stars = new ArrayList<>();
     private int enemySpeed = 15;
@@ -33,7 +33,6 @@ public class SimpleGame extends JPanel implements ActionListener, KeyListener {
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
         timer = new Timer(100, this);  // Тут создаем таймер
-
         Timer timer_text = new Timer(500, e -> {
             showText = !showText;
             repaint();
@@ -42,9 +41,7 @@ public class SimpleGame extends JPanel implements ActionListener, KeyListener {
     }
 
     public void paintComponent(Graphics g) {
-
         if(startPage){
-
             super.paintComponent(g);
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, 400, 600);
@@ -83,7 +80,6 @@ public class SimpleGame extends JPanel implements ActionListener, KeyListener {
                     break;
                 }
             }
-
             if(showText) {
                 g.setFont(new Font("Arial", Font.PLAIN, 15));
                 g.drawString("press enter", 160, 460);
@@ -100,8 +96,6 @@ public class SimpleGame extends JPanel implements ActionListener, KeyListener {
                 enemis.get(i).project(g);
             }
             cube_player.project(g);
-
-
             g.setColor(Color.WHITE);
             g.setFont(new Font("Arial", Font.PLAIN, 20));
             g.drawString("Счет: " + score, 10, 30);  // Выводим счет игрока на экран
@@ -182,9 +176,6 @@ public class SimpleGame extends JPanel implements ActionListener, KeyListener {
                 }
             }
             repaint();
-            /*if(stars.isEmpty() || stars.get(0).getY() > 150){
-                spawnStars();
-            }*/
             if(stars_counter == 10){
                 spawnStars();
                 stars_counter = 0;
@@ -275,9 +266,4 @@ public class SimpleGame extends JPanel implements ActionListener, KeyListener {
     }
     @Override
     public void keyReleased(KeyEvent e) {}
-
-
-
-
-
 }

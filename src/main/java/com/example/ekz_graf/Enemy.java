@@ -6,23 +6,25 @@ import java.awt.*;
 
 class Enemy {
     private int plase;
-    private static int width = 400;
-    private static int height = 600;
-
+    private static final int width = 400;
+    private static final int height = 600;
+    private final float zoomFactor = 5;
     private static float distance;
     private float angle;
-    public int size = 10;
-    Vector3D ulf, urf, llf, lrf; // upper left front, upper right front, usw..
-    Vector3D ulb, urb, llb, lrb; // upper left back ,...
-    Vector3D fl, fr, bl, br;
-
-    public int getPlase() {
-        return plase;
-    }
+    public final int size = 10;
+    Vector3D ulf;
+    private Vector3D urf;
+    private Vector3D llf;
+    private Vector3D lrf;
+    private Vector3D ulb;
+    private Vector3D urb;
+    Vector3D llb;
+    private Vector3D lrb;
+    private Vector3D fl;
 
     public Enemy(int stX, int stY, int plase) {
         angle = (float) Math.toRadians(40);
-        distance = (width / 2) / (float) (Math.tan(angle / 2));
+        distance = ((float) width / 2) / (float) (Math.tan(angle / 2));
         int size_2 = size/2;
         int startx = stX - size_2;
         int starty = stY - size_2;
@@ -66,58 +68,36 @@ class Enemy {
         lrb.y += dy;
 
     }
-
+    private Polygon create_poligon(Light.Point p1, Light.Point p2, Light.Point p3, Light.Point p4){
+        Polygon poligon = new Polygon();
+        poligon.addPoint((int)p1.getX(), (int)p1.getY());
+        poligon.addPoint((int)p2.getX(), (int)p2.getY());
+        poligon.addPoint((int)p3.getX(), (int)p3.getY());
+        poligon.addPoint((int)p4.getX(), (int)p4.getY());
+        return poligon;
+    }
+    private Polygon create_poligon(Light.Point p1, Light.Point p2, Light.Point p3){
+        Polygon poligon = new Polygon();
+        poligon.addPoint((int)p1.getX(), (int)p1.getY());
+        poligon.addPoint((int)p2.getX(), (int)p2.getY());
+        poligon.addPoint((int)p3.getX(), (int)p3.getY());
+        return poligon;
+    }
     public void project(Graphics g) {
-
         Light.Point center = fl.to2D(); //центр
-
-        Light.Point pulf = ulf.to2D(); //левый задний верхний
-        Light.Point purf = urf.to2D(); //правый задний верхний
         Light.Point pllf = llf.to2D(); //левый задний нижний
         Light.Point plrf = lrf.to2D(); //правый задний нижний
-        Light.Point pulb= ulb.to2D(); //левый верхний передний
-        Light.Point purb= urb.to2D(); //правый верхний передний
         Light.Point pllb= llb.to2D(); //левый передний нижний
         Light.Point plrb= lrb.to2D(); //правый передний нижний
         g.setColor(Color.red);
-        Polygon down = new Polygon();
-        down.addPoint((int) pllf.getX(), (int) pllf.getY());
-        down.addPoint((int) plrf.getX(), (int) plrf.getY());
-        down.addPoint((int) plrb.getX(), (int) plrb.getY());
-        down.addPoint((int) pllb.getX(), (int) pllb.getY());
-        g.fillPolygon(down);
-        Polygon right = new Polygon();
-        /*right.addPoint((int)purf.getX(), (int)purf.getY());
-        right.addPoint((int)purb.getX(), (int)purb.getY());*/
-        right.addPoint((int)center.getX(), (int)center.getY());
-        right.addPoint((int)plrb.getX(), (int)plrb.getY());
-        right.addPoint((int)plrf.getX(), (int)plrf.getY());
-        g.fillPolygon(right);
-        Polygon left = new Polygon();
-       /* left.addPoint((int)pulf.getX(), (int)pulf.getY());
-        left.addPoint((int)pulb.getX(), (int)pulb.getY());*/
-        left.addPoint((int)center.getX(), (int)center.getY());
-        left.addPoint((int)pllb.getX(), (int)pllb.getY());
-        left.addPoint((int)pllf.getX(), (int)pllf.getY());
-        g.fillPolygon(left);
-       /* Polygon up = new Polygon();
-        up.addPoint((int) pulf.getX(), (int) pulf.getY());
-        up.addPoint((int) pulb.getX(), (int) pulb.getY());
-        up.addPoint((int) purb.getX(), (int) purb.getY());
-        up.addPoint((int) purf.getX(), (int) purf.getY());
-        g.fillPolygon(up);*/
+        g.fillPolygon(create_poligon(pllf, plrf, plrb, pllb));//down
+        g.fillPolygon(create_poligon(center, plrb, plrf));//right
+        g.fillPolygon(create_poligon(center, pllb, pllf));//left
         g.setColor(Color.pink);
         Polygon front = new Polygon();
-        /*front.addPoint((int) pulb.getX(), (int) pulb.getY());
-        front.addPoint((int) purb.getX(), (int) purb.getY());*/
-        front.addPoint((int)center.getX(), (int)center.getY());
-        front.addPoint((int) plrb.getX(), (int) plrb.getY());
-        front.addPoint((int) pllb.getX(), (int) pllb.getY());
-        g.fillPolygon(front);
+        g.fillPolygon(create_poligon(center, plrb, pllb));//front
 
     }
-
-    float zoomFactor = 5;
     public void further(int zoomFactor) {
         fl.z -= zoomFactor;
         ulf.z -= zoomFactor;
@@ -130,7 +110,6 @@ class Enemy {
         lrb.z -= zoomFactor;
 
     }
-
     public void closer() {
         fl.z += zoomFactor;
         ulf.z += zoomFactor;
@@ -143,47 +122,25 @@ class Enemy {
         lrb.z += zoomFactor;
 
     }
-
+    public int getPlase() {
+        return plase;
+    }
     public static int getWidth() {
         return width;
     }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     public static int getHeight() {
         return height;
     }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public static float getDistance() {
         return distance;
     }
-
     public void setDistance(float distance) {
         this.distance = distance;
     }
-
     public float getAngle() {
         return angle;
     }
-
     public void setAngle(float angle) {
         this.angle = angle;
-    }
-
-
-
-
-    public void motion(){
-        int startX = 200;
-        int startY = 0;
-        int endX = 0;
-        int endY = 600;
-
     }
 }
