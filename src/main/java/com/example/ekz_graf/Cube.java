@@ -5,7 +5,7 @@ import javafx.scene.effect.Light;
 import java.awt.*;
 
 class Cube {
-    private static int width = 400;
+    private static int width = 400; //это что - константа? тогда private static final
     private static int height = 600;
 
     private static float distance;
@@ -15,7 +15,7 @@ class Cube {
     Vector3D ulb, urb, llb, lrb; // upper left back ,...
     Vector3D fl, fr, bl, br;
 
-
+//Лишние пробелы
 
 
 
@@ -76,12 +76,14 @@ class Cube {
         Light.Point plrb= lrb.to2D(); //правый передний нижний
 
         g.setColor(Color.gray);
+        //Вынести в отдельный метод создание объекта
         Polygon right = new Polygon();
         right.addPoint((int)purf.getX(), (int)purf.getY());
         right.addPoint((int)purb.getX(), (int)purb.getY());
         right.addPoint((int)plrb.getX(), (int)plrb.getY());
         right.addPoint((int)plrf.getX(), (int)plrf.getY());
-        g.fillPolygon(right);
+        //вот досюда
+        g.fillPolygon(right); //сюда передавать результат, это увеличит читабильность, уменьшит повторяемость
         g.setColor(Color.gray);
         Polygon left = new Polygon();
         left.addPoint((int)pulf.getX(), (int)pulf.getY());
@@ -105,7 +107,7 @@ class Cube {
         g.fillPolygon(up);
     }
 
-    float zoomFactor = 5;
+    float zoomFactor = 5; //это что - константа? тогда вверх и private static final
     public void further(int zoomFactor) {
         ulf.z -= zoomFactor;
         urf.z -= zoomFactor;
@@ -163,6 +165,8 @@ class Cube {
     }
 
     public void motion(Graphics g){
+
+        //что за мэджик намберс? в константы!!!
         int startX = 200;
         int startY = 0;
         int endX = 0;
