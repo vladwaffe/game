@@ -87,6 +87,20 @@
                     </execution>
                 </executions>
             </plugin>
+<<<<<<< HEAD
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.example.ekz_graf/com.example.ekz_graf.SimpleGame</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+=======
 
 
             <plugin>
@@ -127,6 +141,7 @@
                 </executions>
             </plugin>
 
+>>>>>>> 52d986532673139998e6e9acb78cfcaca48aa9e5
         </plugins>
     </build>
 </project>
