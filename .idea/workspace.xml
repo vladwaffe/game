@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bd2a91e4-43f3-4b8a-8f8b-5daf1870a13e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ekz_graf/FXAppLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ekz_graf/FXAppLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ekz_graf/SimpleGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ekz_graf/SimpleGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2aZk75EvdjnQX19lFGM22iE0oDX" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.47471264&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean package" />
+      <command value="mvn clean javafx:jlink" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.ekz_graf.Main" />
+      <module name="ekz_graf" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bd2a91e4-43f3-4b8a-8f8b-5daf1870a13e" name="Changes" comment="" />
+      <created>1704533320984</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1704533320984</updated>
+      <workItem from="1704533322025" duration="2893000" />
+      <workItem from="1704624630068" duration="5400000" />
+      <workItem from="1704734046157" duration="1900000" />
+      <workItem from="1704786392318" duration="319000" />
+      <workItem from="1704787476382" duration="59000" />
+      <workItem from="1704787620131" duration="901000" />
+      <workItem from="1704789346943" duration="675000" />
+      <workItem from="1705164413639" duration="3996000" />
+      <workItem from="1705168427066" duration="5000" />
+      <workItem from="1705246712312" duration="1875000" />
+      <workItem from="1705248782081" duration="449000" />
+      <workItem from="1705320472950" duration="65000" />
+      <workItem from="1705401050287" duration="2275000" />
+      <workItem from="1705426812188" duration="1273000" />
+      <workItem from="1705429208849" duration="5572000" />
+      <workItem from="1705467900423" duration="1105000" />
+      <workItem from="1705469491221" duration="1337000" />
+    </task>
+    <task id="LOCAL-00001" summary="14.01.24">
+      <option name="closed" value="true" />
+      <created>1705249203592</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1705249203592</updated>
+    </task>
+    <task id="LOCAL-00002" summary="16.01.24">
+      <option name="closed" value="true" />
+      <created>1705403304018</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1705403304018</updated>
+    </task>
+    <task id="LOCAL-00003" summary="16.01.24/2">
+      <option name="closed" value="true" />
+      <created>1705430932050</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1705430932050</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="14.01.24" />
+    <MESSAGE value="16.01.24" />
+    <MESSAGE value="16.01.24/2" />
+    <option name="LAST_COMMIT_MESSAGE" value="16.01.24/2" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
